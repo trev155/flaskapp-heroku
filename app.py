@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
+
 app = Flask(__name__)
 
 @app.route('/getmsg/', methods=['GET'])
@@ -18,10 +19,10 @@ def respond():
 
 @app.route("/post", methods=["POST"])
 def post_something():
-    param = request.form.get("name")
-    print(param)
+    name = request.form.get("name")
+    print(name)
     
-    if param:
+    if name:
         return jsonify({
             "Message": f"Welcome {name} to our awesome platform",
             "METHOD": "POST"
@@ -34,9 +35,16 @@ def post_something():
 
 @app.route("/")
 def index():
-     return "<h1>Welcome to our server. Hello world</h1>"
+    return render_template("index.html", message="Hello Flask!");
+    
+    # return "<h1>Welcome to our server. Hello world</h1><img src='https://trevtestbucket.s3.us-east-2.amazonaws.com/20180908_192759.jpg' width='800' height='600'></img>"
+
+@app.route("/img", methods=["POST"])
+def image_endpoint():
+    return render_template("image.html")
+
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=5002)
 
 
