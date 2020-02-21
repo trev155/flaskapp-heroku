@@ -41,7 +41,7 @@ def index():
 
 @app.route("/img", methods=["POST"])
 def image_endpoint():
-    return render_template("image.html")
+    return render_template("image.html", message="/static/testimage.jpg")
 
 
 if __name__ == "__main__":
